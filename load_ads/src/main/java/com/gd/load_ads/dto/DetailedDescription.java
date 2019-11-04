@@ -14,14 +14,17 @@ public class DetailedDescription {
     String title;
     String price;
     String floor;
+    String owner;
     String pledge;
     String square;
+    Boolean agency;
     AdsType adType;
     String location;
     String category;
     String countRoom;
     String livingSpace;
     Ownership ownership;
+    String contactPerson;
     String kitchenSquare;
     HouseType typeOfHouse;
     String countFloorInHouse;

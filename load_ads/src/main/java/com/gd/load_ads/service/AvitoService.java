@@ -27,15 +27,18 @@ public class AvitoService {
         this.responseHandler = responseHandler;
     }
 
-    public void getInformationAboutAds() throws IOException {
-        final Document document = Jsoup.connect(URL.concat(URI)).get();
-        Elements newsHeadlines = document.select(".item-description-title");
-        for (Element headline : newsHeadlines) {
-            final String uri = headline.select("a[href]").attr("href");
-            logger.info(uri);
-            final Document detailedDescription = Jsoup.connect(MOBILE_URL.concat(uri)).userAgent(IOS_USER_AGENT).get();
-            final Map<String, String> mapTitleAndDescription = getMapTitleAndDescription(detailedDescription);
-            responseHandler.getDetailDescription(mapTitleAndDescription);
+    public void getInformationAboutAds(int firstPage, int lastPage) throws IOException {
+        for (int page = firstPage; page != lastPage; page++) {
+            final Document document = Jsoup.connect(URL.concat(URI.concat(String.format("?p=%d", page)))).get();
+            Elements newsHeadlines = document.select(".item-description-title");
+            for (Element headline : newsHeadlines) {
+                final String uri = headline.select("a[href]").attr("href");
+                logger.info("------------------------------------------");
+                logger.info(uri);
+                final Document detailedDescription = Jsoup.connect(MOBILE_URL.concat(uri)).userAgent(IOS_USER_AGENT).get();
+                final Map<String, String> mapTitleAndDescription = getMapTitleAndDescription(detailedDescription);
+                responseHandler.getDetailDescription(mapTitleAndDescription);
+            }
         }
     }
 
@@ -52,6 +55,17 @@ public class AvitoService {
         String location = detailedDescription.select("[data-marker=delivery/location]").text();
         map.put("Адрес", location);
         logger.info("Location: " + location);
+
+        String owner = detailedDescription.select("[data-marker=seller-info/name]").text();
+        String agency = detailedDescription.select("[data-marker=seller-info/postfix]").text();
+        String contact = detailedDescription.select("[data-marker=seller-info/manger]").text();
+        map.put("Продавец", owner);
+        logger.info("Продавец: " + owner);
+        map.put("Агенство", agency);
+        logger.info("Агенство: " + agency);
+        map.put("Контактное лицо", contact);
+        logger.info("Контактное лицо, " + contact);
+
 
         int i = 0;
         String dataMarkerTitle = String.format("[data-marker=item-properties-item(%d)/title]", i);

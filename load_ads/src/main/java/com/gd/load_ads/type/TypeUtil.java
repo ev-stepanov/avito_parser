@@ -60,10 +60,10 @@ public class TypeUtil {
 
     public static Ownership ownershipByString(String type) {
         switch (type.toLowerCase()) {
-            case "Посредник": {
+            case "посредник": {
                 return Ownership.INTERMEDIARY;
             }
-            case "Собственник": {
+            case "собственник": {
                 return Ownership.OWNER;
             }
             default: {

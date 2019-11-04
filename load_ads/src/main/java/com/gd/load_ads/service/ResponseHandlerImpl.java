@@ -16,7 +16,7 @@ public class ResponseHandlerImpl implements ResponseHandler {
                     builder.category(entry.getValue());
                     break;
                 }
-                case "Залог,мес": {
+                case "Залог, мес.": {
                     builder.pledge(entry.getValue());
                     break;
                 }
@@ -70,6 +70,18 @@ public class ResponseHandlerImpl implements ResponseHandler {
                 }
                 case "Право собственности": {
                     builder.ownership(TypeUtil.ownershipByString(entry.getValue()));
+                    break;
+                }
+                case "Продавец": {
+                    builder.owner(entry.getValue());
+                    break;
+                }
+                case "Агенство": {
+                    builder.agency(!entry.getValue().isEmpty());
+                    break;
+                }
+                case "Контактное лицо": {
+                    builder.contactPerson(entry.getValue());
                     break;
                 }
             }

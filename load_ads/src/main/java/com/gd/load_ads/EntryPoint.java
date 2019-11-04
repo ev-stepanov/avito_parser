@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 @Service
 public class EntryPoint {
@@ -15,7 +17,19 @@ public class EntryPoint {
     }
 
     @PostConstruct
-    public void main() throws IOException {
-        avitoService.getInformationAboutAds();
+    public void main() {
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+
+        for (int i = 0; i < 5; i++)
+        {
+            int finalI = i;
+            executor.execute(()-> {
+                try {
+                    avitoService.getInformationAboutAds(finalI * 8 + 1, finalI + 8);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
     }
 }
