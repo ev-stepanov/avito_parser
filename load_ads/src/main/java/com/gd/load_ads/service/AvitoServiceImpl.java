@@ -18,6 +18,7 @@ import java.util.Map;
 @Service
 public class AvitoServiceImpl implements AvitoService {
     private static final Logger logger =  LogManager.getLogger(AvitoServiceImpl.class);
+    public static final Integer COUNT_PAGE;
 
     private final AdsService adsService;
     private final ResponseHandler responseHandler;
@@ -27,13 +28,26 @@ public class AvitoServiceImpl implements AvitoService {
     private static final String MOBILE_URL = "https://m.avito.ru";
     private static final String URI = "/saratov/kvartiry";
 
+    static {
+        Document document;
+        Elements elements = null;
+        try {
+            document = Jsoup.connect(URL.concat(URI)).get();
+            elements = document.select(".pagination-page");
+        } catch (IOException e) {
+            logger.warn("");
+        }
+        COUNT_PAGE =  Integer.parseInt(elements.last().attributes().asList().get(1).getValue().replaceAll("\\D+", ""));
+
+    }
+
     public AvitoServiceImpl(ResponseHandler responseHandler, AdsService adsService) {
         this.responseHandler = responseHandler;
         this.adsService = adsService;
     }
 
     public void getInformationAboutAds(int firstPage, int lastPage) {
-        for (int page = firstPage; page != lastPage; page++) {
+        for (int page = firstPage; page < lastPage; page++) {
             final Document document;
             try {
                 document = Jsoup.connect(URL.concat(URI.concat(String.format("?p=%d", page)))).get();

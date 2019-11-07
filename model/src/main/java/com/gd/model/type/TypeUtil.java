@@ -32,10 +32,10 @@ public class TypeUtil {
             case "снять": {
                 return AdsType.RENT;
             }
-            case "продать": {
+            case "покупатели": {
                 return AdsType.BUYERS;
             }
-            case "сдать": {
+            case "арендаторы": {
                 return AdsType.TENANTS;
             }
             default: {

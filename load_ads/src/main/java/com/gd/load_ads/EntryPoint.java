@@ -8,8 +8,11 @@ import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import static com.gd.load_ads.service.AvitoServiceImpl.COUNT_PAGE;
+
 @Component
 public class EntryPoint {
+    private static final int N_THREADS = 4;
     private final AvitoService avitoService;
 
     public EntryPoint(AvitoService avitoService) {
@@ -24,15 +27,15 @@ public class EntryPoint {
 //            e.printStackTrace();
 //        }
 
-        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(5);
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(N_THREADS);
+        final int delta = COUNT_PAGE / N_THREADS;
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < N_THREADS; i++)
         {
-            int finalI = i;
-
+            int pageFirst = i * delta + 1;
             executor.execute(()-> {
                 try {
-                    avitoService.getInformationAboutAds(finalI * 8 + 1, finalI + 8);
+                    avitoService.getInformationAboutAds(pageFirst + 1, pageFirst + delta);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

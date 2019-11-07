@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity(name = "detailed_information")
 public class DetailedInformation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 //    private String floor;
     private String pledge;
@@ -38,4 +38,8 @@ public class DetailedInformation {
     @JoinColumn(name = "retail_period")
     @Enumerated(EnumType.STRING)
     private RentalPeriod rentalPeriod;
+
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @MapsId
+//    private Ads ads;
 }

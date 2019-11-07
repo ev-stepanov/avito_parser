@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Ads {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private Integer price;
@@ -19,8 +19,8 @@ public class Ads {
     @Column(name = "contact_person")
     private String contactPerson;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "details")
-    DetailedInformation detailedInformation;
+    private DetailedInformation detailedInformation;
 
 }

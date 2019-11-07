@@ -49,7 +49,8 @@ public class ResponseHandlerImpl implements ResponseHandler {
                     break;
                 }
                 case "Цена": {
-                    builder.price(Integer.parseInt(entry.getValue().replaceAll("\\D+","")));
+                    final String row = entry.getValue().replaceAll("\\D+", "");
+                    builder.price(Integer.parseInt(row.isEmpty() ? "0" : row));
                     break;
                 }
                 case "Адрес": {
