@@ -1,4 +1,4 @@
-package com.gd.load_ads.type;
+package com.gd.model.type;
 
 public class TypeUtil {
     public static HouseType houseTypeByString(String type) {

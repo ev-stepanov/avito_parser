@@ -1,9 +1,9 @@
 package com.gd.load_ads.service;
 
-import com.gd.load_ads.dto.DetailedDescription;
+import com.gd.model.dto.Advertising;
 
 import java.util.Map;
 
 public interface ResponseHandler {
-    DetailedDescription getDetailDescription(Map<String, String> map);
+    Advertising getDetailDescription(Map<String, String> map);
 }

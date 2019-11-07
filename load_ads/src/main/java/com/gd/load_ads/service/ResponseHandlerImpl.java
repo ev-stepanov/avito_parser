@@ -1,15 +1,15 @@
 package com.gd.load_ads.service;
 
-import com.gd.load_ads.dto.DetailedDescription;
-import com.gd.load_ads.type.TypeUtil;
+import com.gd.model.dto.Advertising;
+import com.gd.model.type.TypeUtil;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
 public class ResponseHandlerImpl implements ResponseHandler {
-    public DetailedDescription getDetailDescription(Map<String, String> map) {
-        final DetailedDescription.DetailedDescriptionBuilder builder = DetailedDescription.builder();
+    public Advertising getDetailDescription(Map<String, String> map) {
+        final Advertising.AdvertisingBuilder builder = Advertising.builder();
         for (Map.Entry<String, String> entry : map.entrySet()) {
             switch (entry.getKey()) {
                 case "Категория": {
@@ -20,22 +20,22 @@ public class ResponseHandlerImpl implements ResponseHandler {
                     builder.pledge(entry.getValue());
                     break;
                 }
-                case "Этаж": {
-                    builder.floor(entry.getValue());
-                    break;
-                }
-                case "Этажей в доме": {
-                    builder.countFloorInHouse(entry.getValue());
-                    break;
-                }
-                case "Количество комнат": {
-                    builder.countRoom(entry.getValue());
-                    break;
-                }
-                case "Общая площадь": {
-                    builder.square(entry.getValue());
-                    break;
-                }
+//                case "Этаж": {
+//                    builder.floor(entry.getValue());
+//                    break;
+//                }
+//                case "Этажей в доме": {
+//                    builder.countFloorInHouse(entry.getValue());
+//                    break;
+//                }
+//                case "Количество комнат": {
+//                    builder.countRoom(entry.getValue());
+//                    break;
+//                }
+//                case "Общая площадь": {
+//                    builder.square(entry.getValue());
+//                    break;
+//                }
                 case "Жилая площадь, м²": {
                     builder.livingSpace(entry.getValue());
                     break;
@@ -49,7 +49,7 @@ public class ResponseHandlerImpl implements ResponseHandler {
                     break;
                 }
                 case "Цена": {
-                    builder.price(entry.getValue());
+                    builder.price(Integer.parseInt(entry.getValue().replaceAll("\\D+","")));
                     break;
                 }
                 case "Адрес": {
