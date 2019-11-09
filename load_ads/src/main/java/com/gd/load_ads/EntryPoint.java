@@ -21,12 +21,6 @@ public class EntryPoint {
 
     @PostConstruct
     public void main() {
-//        try {
-//            avitoService.getInformationAboutAds(1, 2);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(N_THREADS);
         final int delta = COUNT_PAGE / N_THREADS;
 
