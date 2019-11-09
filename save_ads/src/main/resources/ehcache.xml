@@ -1,0 +1,30 @@
+<config
+        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xmlns='http://www.ehcache.org/v3'
+        xsi:schemaLocation="
+            http://www.ehcache.org/v3
+            http://www.ehcache.org/schema/ehcache-core-3.7.xsd">
+    <persistence directory="spring-boot-ehcache/cache" />
+    <cache-template name="default">
+        <expiry>
+            <ttl>3600</ttl>
+        </expiry>
+        <resources>
+            <heap>100</heap>
+            <heap>10000</heap>
+            <offheap unit="MB">20</offheap>
+            <disk persistent="true" unit="MB">50</disk>
+        </resources>
+    </cache-template>
+
+    <cache alias="findById" uses-template="default">
+        <key-type>java.lang.Long</key-type>
+        <value-type>com.gd.model.entity.Ads</value-type>
+    </cache>
+
+    <cache alias="findAll" uses-template="default">
+        <key-type/>
+        <value-type>java.util.ArrayList</value-type>
+    </cache>
+
+</config>

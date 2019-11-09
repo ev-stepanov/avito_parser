@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @SpringBootApplication(scanBasePackages={"com.gd.save_ads"})
 @EntityScan("com.gd.model")
+@EnableCaching
 public class SaveAdsApplication {
     public static void main(String[] args) {
         SpringApplication.run(SaveAdsApplication.class, args);

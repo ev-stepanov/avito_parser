@@ -19,7 +19,7 @@ public class Ads {
     @Column(name = "contact_person")
     private String contactPerson;
 
-    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "details")
     private DetailedInformation detailedInformation;
 
