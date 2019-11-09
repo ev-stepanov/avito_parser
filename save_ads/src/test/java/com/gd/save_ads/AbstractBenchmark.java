@@ -8,8 +8,8 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 public abstract class AbstractBenchmark {
-    private final static Integer MEASUREMENT_ITERATIONS = 5;
-    private final static Integer WARMUP_ITERATIONS = 5;
+    private final static Integer MEASUREMENT_ITERATIONS = 1;
+    private final static Integer WARMUP_ITERATIONS = 0;
 
     @Test
     public void executeJmhRunner() throws RunnerException {
