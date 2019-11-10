@@ -29,9 +29,13 @@ public class SaveAdsApplication {
 
     private static void run() {
         final long l = System.currentTimeMillis();
-        final List<Ads> ads = searchService.fuzzySearch("40");
+        final List<Ads> ads = searchService.searchByTitle("1-комнатная");
         final long l1 = System.currentTimeMillis();
 
+        final List<Ads> пензенская = searchService.searchByLocation("пензенская");
+
+
+        final List<Ads> пензенская1 = searchService.searchByParam("40", "пензенская");
         System.out.println(ads.size());
 
     }

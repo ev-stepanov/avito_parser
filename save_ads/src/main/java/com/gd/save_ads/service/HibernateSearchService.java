@@ -16,15 +16,65 @@ import java.util.List;
 @Repository
 @Transactional
 public class HibernateSearchService {
-
     @PersistenceContext
     private EntityManager em;
 
-    public List<Ads> fuzzySearch(String searchTerm) {
+    @SuppressWarnings("unchecked")
+    public List<Ads> searchByTitle(String searchTerm) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
-        QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Ads.class).get();
-        Query luceneQuery = qb.keyword().fuzzy().withEditDistanceUpTo(1).withPrefixLength(1).onFields("title")
-                .matching(searchTerm).createQuery();
+        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Ads.class).get();
+        Query luceneQuery = queryBuilder
+                .keyword()
+                .onField("title")
+                .matching(searchTerm)
+                .createQuery();
+
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Ads.class);
+
+        List<Ads> BaseballCardList = null;
+        try {
+            BaseballCardList = jpaQuery.getResultList();
+        } catch (NoResultException ignored) {
+        }
+
+        return BaseballCardList;
+    }
+    @SuppressWarnings("unchecked")
+    public List<Ads> searchByLocation(String searchTerm) {
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Ads.class).get();
+        Query luceneQuery = queryBuilder
+                .keyword()
+                .fuzzy()
+                .withEditDistanceUpTo(2)
+                .withPrefixLength(2)
+                .onFields("location")
+                .matching(searchTerm)
+                .createQuery();
+
+        javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Ads.class);
+
+        List<Ads> BaseballCardList = null;
+        try {
+            BaseballCardList = jpaQuery.getResultList();
+        } catch (NoResultException ignored) {
+        }
+
+        return BaseballCardList;
+    }
+    @SuppressWarnings("unchecked")
+    public List<Ads> searchByParam(String title, String location) {
+        FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(em);
+        QueryBuilder queryBuilder = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Ads.class).get();
+        Query luceneQuery = queryBuilder
+                .bool()
+                .must(queryBuilder.keyword()
+                        .onField("title").matching(title)
+                        .createQuery())
+                .should(queryBuilder.keyword()
+                        .onField("location").matching(location)
+                        .createQuery())
+                .createQuery();
 
         javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Ads.class);
 
