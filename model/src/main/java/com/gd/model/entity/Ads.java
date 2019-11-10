@@ -1,17 +1,22 @@
 package com.gd.model.entity;
 
 import lombok.Data;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
 
 import javax.persistence.*;
 
 
 @Data
 @Entity
+@Indexed
 public class Ads {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Field
     private String title;
+    @Field
     private Integer price;
     private String owner;
     private String location;

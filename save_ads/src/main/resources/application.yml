@@ -1,9 +1,15 @@
 spring:
   jpa:
     database: POSTGRESQL
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto:
+    properties:
+      hibernate:
+        search:
+          default:
+            directory__provider: filesystem
+            indexBase: indexpath
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/avito-db

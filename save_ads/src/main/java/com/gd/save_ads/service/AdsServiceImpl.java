@@ -2,21 +2,29 @@ package com.gd.save_ads.service;
 
 import com.gd.model.entity.Ads;
 import com.gd.save_ads.AdsRepository;
+import org.apache.lucene.search.Query;
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.jpa.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
+import java.util.Optional;
 
+@Transactional
 @Service
 public class AdsServiceImpl implements AdsService {
-    private AdsRepository adsRepository;
+    private final AdsRepository adsRepository;
 
     public AdsServiceImpl(AdsRepository adsRepository) {
         this.adsRepository = adsRepository;
     }
 
-    @Transactional
     @Override
     public Ads save(Ads ads) {
         return adsRepository.save(ads);
@@ -43,7 +51,7 @@ public class AdsServiceImpl implements AdsService {
             key = "#id"
     )
     @Override
-    public Ads getById(Long id) {
-        return adsRepository.getOne(id);
+    public Optional<Ads> getById(Long id) {
+        return adsRepository.findById(id);
     }
 }
