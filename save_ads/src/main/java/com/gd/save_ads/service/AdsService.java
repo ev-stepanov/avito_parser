@@ -11,6 +11,7 @@ public interface AdsService {
     Ads save (Ads ads);
     Optional<Ads> getById(Long id);
     List<Ads> getAllAds();
+    List<Ads> getAllAdsWithNThreads(int countThread);
     List<Ads> getAllAdsByPriseLess(Integer price);
     List<Ads> getAllAdsByPriseMore(Integer price);
 }

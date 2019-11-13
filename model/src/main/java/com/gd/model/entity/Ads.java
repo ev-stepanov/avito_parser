@@ -10,6 +10,10 @@ import javax.persistence.*;
 
 @Data
 @Entity
+@Table(indexes =  {
+        @Index(columnList = "details"),
+        @Index(columnList = "price")
+})
 @Indexed
 public class Ads {
     @Id

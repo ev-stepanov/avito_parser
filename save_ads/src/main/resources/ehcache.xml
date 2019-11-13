@@ -10,7 +10,6 @@
             <ttl>3600</ttl>
         </expiry>
         <resources>
-            <heap>100</heap>
             <heap>10000</heap>
             <offheap unit="MB">20</offheap>
             <disk persistent="true" unit="MB">50</disk>

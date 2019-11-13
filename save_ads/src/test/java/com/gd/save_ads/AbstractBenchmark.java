@@ -8,8 +8,8 @@ import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 public abstract class AbstractBenchmark {
-    private final static Integer MEASUREMENT_ITERATIONS = 1;
-    private final static Integer WARMUP_ITERATIONS = 0;
+    private final static Integer MEASUREMENT_ITERATIONS = 3;
+    private final static Integer WARMUP_ITERATIONS = 3;
 
     @Test
     public void executeJmhRunner() throws RunnerException {
@@ -24,7 +24,7 @@ public abstract class AbstractBenchmark {
                 .resultFormat(ResultFormatType.JSON)
                 .result("/dev/null")
                 .shouldFailOnError(true)
-                .jvmArgs("-server") //"-Xms2G", "-Xmx2G"
+                .jvmArgs("-server")
                 .build();
 
         new Runner(jmhRunnerOptions).run();

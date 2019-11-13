@@ -25,7 +25,7 @@ public class BuildSearchIndex implements ApplicationListener<ApplicationReadyEve
         }
         catch (InterruptedException e) {
             System.out.println(
-                    "An error occurred trying to build the serach index: " +
+                    "An error occurred trying to build the search index: " +
                             e.toString());
         }
     }

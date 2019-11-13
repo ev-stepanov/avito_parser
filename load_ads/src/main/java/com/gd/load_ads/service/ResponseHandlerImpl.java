@@ -20,22 +20,6 @@ public class ResponseHandlerImpl implements ResponseHandler {
                     builder.pledge(entry.getValue());
                     break;
                 }
-//                case "Этаж": {
-//                    builder.floor(entry.getValue());
-//                    break;
-//                }
-//                case "Этажей в доме": {
-//                    builder.countFloorInHouse(entry.getValue());
-//                    break;
-//                }
-//                case "Количество комнат": {
-//                    builder.countRoom(entry.getValue());
-//                    break;
-//                }
-//                case "Общая площадь": {
-//                    builder.square(entry.getValue());
-//                    break;
-//                }
                 case "Жилая площадь, м²": {
                     builder.livingSpace(entry.getValue());
                     break;

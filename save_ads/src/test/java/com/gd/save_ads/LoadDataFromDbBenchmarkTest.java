@@ -31,7 +31,7 @@ public class LoadDataFromDbBenchmarkTest extends AbstractBenchmark {
 
         assert(adsService != null);
 
-        final List<Ads> allAds = adsService.getAllAds();
+        final List<Ads> allAds = adsService.getAllAdsWithNThreads(4);
         bh.consume(allAds.size());
     }
 }
