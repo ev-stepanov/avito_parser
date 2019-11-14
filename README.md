@@ -14,6 +14,6 @@ Open Terminal or Command Line to run docker-compose:
 2. Type "docker-compose up -d" to boot containers
 3. If you want to restart containers, type “docker-compose down” and then "docker-compose up -d"
 
-## Using the command: "mvn clean install" in root directory we create jar's
-
-#You can fill in the database using the command: "java jar load_ads-X.X-SNAPSHOT.jar"
+* Module load_ads responsible for parsing advertising from avito.
+* Module save_ads responsible for saving advertising to database (postgres).
+* Module model save dto and entity
