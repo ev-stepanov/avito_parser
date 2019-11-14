@@ -2,12 +2,16 @@ package com.gd.load_ads.service;
 
 import com.gd.model.dto.Advertising;
 import com.gd.model.type.TypeUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
 public class ResponseHandlerImpl implements ResponseHandler {
+    private static final Logger logger =  LogManager.getLogger(ResponseHandlerImpl.class);
+
     public Advertising getDetailDescription(Map<String, String> map) {
         final Advertising.AdvertisingBuilder builder = Advertising.builder();
         for (Map.Entry<String, String> entry : map.entrySet()) {
@@ -69,6 +73,8 @@ public class ResponseHandlerImpl implements ResponseHandler {
                     builder.contactPerson(entry.getValue());
                     break;
                 }
+                default:
+                    logger.warn("Unexpected value: " + entry.getKey());
             }
         }
 

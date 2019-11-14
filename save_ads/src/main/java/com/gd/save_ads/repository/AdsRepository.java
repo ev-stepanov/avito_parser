@@ -1,4 +1,4 @@
-package com.gd.save_ads;
+package com.gd.save_ads.repository;
 
 import com.gd.model.entity.Ads;
 import org.springframework.data.domain.Pageable;

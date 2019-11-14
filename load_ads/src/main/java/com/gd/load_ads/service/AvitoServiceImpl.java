@@ -9,6 +9,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class AvitoServiceImpl implements AvitoService {
     private static final String URL = "https://www.avito.ru";
     private static final String MOBILE_URL = "https://m.avito.ru";
     private static final String URI = "/saratov/kvartiry";
+    private static final String DEFAULT_COUNT_OF_PAGES = "1";
 
     static {
         Document document;
@@ -35,10 +37,16 @@ public class AvitoServiceImpl implements AvitoService {
             document = Jsoup.connect(URL.concat(URI)).get();
             elements = document.select(".pagination-page");
         } catch (IOException e) {
-            logger.warn("");
+            logger.error("Failed to determine the number of pages.");
         }
-        COUNT_PAGE =  Integer.parseInt(elements.last().attributes().asList().get(1).getValue().replaceAll("\\D+", ""));
-
+        COUNT_PAGE = Integer.parseInt(
+                elements == null ? DEFAULT_COUNT_OF_PAGES : elements
+                        .last()
+                        .attributes()
+                        .asList()
+                        .get(1)
+                        .getValue()
+                        .replaceAll("\\D+", ""));
     }
 
     public AvitoServiceImpl(ResponseHandler responseHandler, AdsService adsService) {
@@ -52,19 +60,21 @@ public class AvitoServiceImpl implements AvitoService {
             try {
                 document = Jsoup.connect(URL.concat(URI.concat(String.format("?p=%d", page)))).get();
             } catch (IOException e) {
-                logger.warn("", e);
+                logger.warn(String.format("Failed to read page of number %s", page), e);
                 continue;
             }
+
             Elements newsHeadlines = document.select(".item-description-title");
             for (Element headline : newsHeadlines) {
                 final String uri = headline.select("a[href]").attr("href");
-                logger.info("------------------------------------------");
+                logger.info("---------------------------------------------------------------");
                 logger.info(uri);
-                Document detailedDescription = null;
+                Document detailedDescription;
                 try {
                     detailedDescription = Jsoup.connect(MOBILE_URL.concat(uri)).userAgent(IOS_USER_AGENT).get();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.warn(String.format("Failed to read ads:  %s", uri), e);
+                    continue;
                 }
                 final Map<String, String> mapTitleAndDescription = getMapTitleAndDescription(detailedDescription);
                 final Advertising advertising = responseHandler.getDetailDescription(mapTitleAndDescription);
@@ -88,12 +98,14 @@ public class AvitoServiceImpl implements AvitoService {
         logger.info("Location: " + location);
 
         String owner = detailedDescription.select("[data-marker=seller-info/name]").text();
-        String agency = detailedDescription.select("[data-marker=seller-info/postfix]").text();
-        String contact = detailedDescription.select("[data-marker=seller-info/manger]").text();
         map.put("Продавец", owner);
         logger.info("Продавец: " + owner);
+
+        String agency = detailedDescription.select("[data-marker=seller-info/postfix]").text();
         map.put("Агенство", agency);
         logger.info("Агенство: " + agency);
+
+        String contact = detailedDescription.select("[data-marker=seller-info/manger]").text();
         map.put("Контактное лицо", contact);
         logger.info("Контактное лицо, " + contact);
 

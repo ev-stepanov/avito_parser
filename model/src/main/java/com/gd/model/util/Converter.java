@@ -20,13 +20,9 @@ public class Converter {
     private static DetailedInformation advertisingToDetailedInformation(Advertising advertising) {
         final DetailedInformation detailedInformation = new DetailedInformation();
         detailedInformation.setAgency(advertising.getAgency());
-//        detailedInformation.setCountFloorInHouse(advertising.getCountFloorInHouse());
-//        detailedInformation.setCountRoom(advertising.getCountRoom());
-//        detailedInformation.setFloor(advertising.getFloor());
         detailedInformation.setKitchenSquare(advertising.getKitchenSquare());
         detailedInformation.setLivingSpace(advertising.getLivingSpace());
         detailedInformation.setPledge(advertising.getPledge());
-//        detailedInformation.setSquare(advertising.getSquare());
         detailedInformation.setAdsType(advertising.getAdType());
         detailedInformation.setRentalPeriod(advertising.getRentalPeriod());
         detailedInformation.setHouseType(advertising.getTypeOfHouse());

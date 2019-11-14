@@ -12,20 +12,16 @@ import lombok.Getter;
 public class Advertising {
     private String title;
     private Integer price;
-//    private String floor;
     private String owner;
     private String pledge;
-//    private String square;
     private Boolean agency;
     private AdsType adType;
     private String location;
     private String category;
-//    private String countRoom;
     private String livingSpace;
     private Ownership ownership;
     private String contactPerson;
     private String kitchenSquare;
     private HouseType typeOfHouse;
-//    private String countFloorInHouse;
     private RentalPeriod rentalPeriod;
 }

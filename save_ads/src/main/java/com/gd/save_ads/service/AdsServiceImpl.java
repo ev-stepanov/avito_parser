@@ -1,7 +1,7 @@
 package com.gd.save_ads.service;
 
 import com.gd.model.entity.Ads;
-import com.gd.save_ads.AdsRepository;
+import com.gd.save_ads.repository.AdsRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,6 @@ public class AdsServiceImpl implements AdsService {
         return adsRepository.save(ads);
     }
 
-//    @Cacheable(value = "findAll")
     @Override
     public List<Ads> getAllAds() {
         return adsRepository.findAll();

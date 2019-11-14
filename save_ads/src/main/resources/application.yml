@@ -12,7 +12,6 @@ spring:
             indexBase: indexpath
             indexwriter:
               infostream: true
-
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/avito-db

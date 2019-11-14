@@ -27,7 +27,15 @@ public class LoadDataFromDbBenchmarkTest extends AbstractBenchmark {
     }
 
     @Benchmark
-    public void someBenchmarkMethod(Blackhole bh) {
+    public void testPerformanceAllAds(Blackhole bh) {
+
+        assert(adsService != null);
+
+        final List<Ads> allAds = adsService.getAllAds();
+        bh.consume(allAds.size());
+    }
+    @Benchmark
+    public void testPerformanceAllAdsInMultiThread(Blackhole bh) {
 
         assert(adsService != null);
 

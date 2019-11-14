@@ -9,7 +9,7 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 public abstract class AbstractBenchmark {
     private final static Integer MEASUREMENT_ITERATIONS = 3;
-    private final static Integer WARMUP_ITERATIONS = 3;
+    private final static Integer WARMUP_ITERATIONS = 2;
 
     @Test
     public void executeJmhRunner() throws RunnerException {
