@@ -19,7 +19,7 @@
 
         <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
         <postgresql.version>42.2.8</postgresql.version>
-        <log4j-core.version>2.13.2</log4j-core.version>
+        <log4j-core.version>2.16.0</log4j-core.version>
         <jmh-core.version>1.21</jmh-core.version>
         <lombok.version>1.18.10</lombok.version>
         <jsoup.version>1.11.3</jsoup.version>
