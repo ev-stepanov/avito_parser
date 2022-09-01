@@ -22,7 +22,7 @@
         <log4j-core.version>2.13.2</log4j-core.version>
         <jmh-core.version>1.21</jmh-core.version>
         <lombok.version>1.18.10</lombok.version>
-        <jsoup.version>1.11.3</jsoup.version>
+        <jsoup.version>1.15.3</jsoup.version>
     </properties>
 
     <dependencyManagement>
